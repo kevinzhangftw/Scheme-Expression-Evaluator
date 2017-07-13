@@ -9,9 +9,5 @@
 )
 
 (define alphaenv
-	(extend-env 'kiy 5 protoenv)
+	(extend-env 'key 5 protoenv)
 )
-
-(search 'key protoenv)
-(search 'kay protoenv)
-(search 'key alphaenv)
