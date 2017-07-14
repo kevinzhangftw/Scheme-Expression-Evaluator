@@ -14,7 +14,11 @@
 	(lambda (env v)
 		(if (equal? (car (car env)) v)
 		    (cdr (car env))
-		    (apply-env (cdr env) v)
+		    ;else is (cdr env) empty
+		    (if (null? (cdr env))
+		    	(error "empty environment")
+		    	(apply-env (cdr env) v)
+		    )
 		)
 	)
 )

@@ -16,7 +16,11 @@
                     (make-empty-env)))))
 )
 
+test-env
+
 (apply-env test-env 'a)
 (apply-env test-env 'b)
 (apply-env test-env 'c)
 (apply-env test-env 'd)
+
+
