@@ -4,10 +4,18 @@
 
 ((make-empty-env))
 
-(define protoenv
-	(extend-env 'key 1 (make-empty-env) )
+(define test-env
+    (extend-env 'a 1
+        (extend-env 'b 2
+            (extend-env 'c 3
+                (extend-env 'b 4
+                    (make-empty-env)))))
 )
 
-(define alphaenv
-	(extend-env 'key 5 protoenv)
-)
+test-env
+
+(apply-env test-env 'a)
+(apply-env test-env 'b)
+(apply-env test-env 'c)
+(apply-env test-env 'd)
+

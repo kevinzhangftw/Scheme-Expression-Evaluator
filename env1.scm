@@ -16,7 +16,7 @@
 		    (cdr (car env))
 		    ;else is (cdr env) empty
 		    (if (null? (cdr env))
-		    	(error "empty environment")
+		    	(error "unknown variable")
 		    	(apply-env (cdr env) v)
 		    )
 		)

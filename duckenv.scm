@@ -9,21 +9,13 @@
 (define extend-env
 	(lambda (v val env)
 		(lambda ()
-			(cons (cons v val) env)	
+			(if (search? v env)
+              	;v found, replace val
+              	(replace v val env)
+              	;v not found, append new pair
+				(cons (cons v val) env)
+			)
 		) 
-	)
-)
-
-(define apply-env
-	(lambda (env v)
-		(cond 
-		    ((null? (env))
-		        (error "unknown variable"))
-			((equal? (car (car (env))) v) 
-				(cdr (car (env))))
-		    (else
-		    	(apply-env (cdr (env)) v))
-		)
 	)
 )
 
