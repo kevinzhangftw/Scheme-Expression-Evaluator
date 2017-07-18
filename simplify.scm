@@ -1,30 +1,51 @@
-
 (define (simplify expr)
-	(cond ((number? expr)
-				expr)
-		  ((symbol? expr)
+	(cond	((number? expr)
+		  				expr)
+		    ((symbol? expr)
+		  	  	  		expr)
+			((= (length expr) 3)
+				(cond ((and (equal? (second expr) '+) (equal? (simplify (first expr)) 0))
+	  		  		  		(simplify (third expr)))
+			  		  ((and (equal? (second expr) '+) (equal? (simplify (third expr)) 0))
+			  		  		(simplify (first expr)))
+			  	  	  ((and (equal? (second expr) '*) (equal? (simplify (first expr)) 0))
+			  	  			0)				
+			  	      ((and (equal? (second expr) '*) (equal? (simplify (third expr)) 0))
+			  	  			0)
+			  	  	  ((and (equal? (second expr) '*) (equal? (simplify (first expr)) 1))
+			  	  	  		(simplify (third expr)))
+			  	      ((and (equal? (second expr) '*) (equal? (simplify (third expr)) 1))
+			  	  	  		(simplify (first expr)))
+			  	  	  ((and (equal? (second expr) '-) 
+					        (equal? (simplify (third expr)) 
+									(simplify (first expr))))
+			  	  	  		0)
+			  	      ((and (equal? (second expr) '-) (equal? (simplify (third expr)) 0))
+			  	  	  		(simplify (first expr)))			
+			  	  	  ((and (equal? (second expr) '**) (equal? (simplify (third expr)) 0))
+			  	  	  		1)
+			  	      ((and (equal? (second expr) '**) (equal? (simplify (third expr)) 1))
+			  	  	  		(simplify (first expr)))
+			  	      ((and (equal? (second expr) '**) (equal? (simplify (first expr)) 1))
+			  	  	  		1)
+					  (else
+							(cons (simplify (first expr)) 
+								  (cons (cadr expr) 
+								  		(cons (simplify (last expr)) '()
+										) 
+								  )
+							)
+					  )
+				)
+		  )
+		  ((= (length expr) 2)
+		  	  (cond ((and (equal? (first expr) 'inc) (number? (second expr)))
+	  	  								(+ (second expr) 1))
+	      	  		((and (equal? (first expr) 'dec) (number? (second expr)))
+	  	  								(- (second expr) 1))
+    		  )
+		  )
+		  (else
 	  	  		expr)
-		  ((and (equal? (second expr) '+) (equal? (first expr) 0))
-		  		(third expr))
-		  ((and (equal? (second expr) '+) (equal? (third expr) 0))
-		  		(first expr))
-	  	  ((and (equal? (second expr) '*) (equal? (first expr) 0))
-	  			0)
-	      ((and (equal? (second expr) '*) (equal? (third expr) 0))
-	  			0)
 	)
 )
-
-(0 + e) simplifies to e
-(e + 0) simplifies to e
-(0 * e) simplifies to 0
-(e * 0) simplifies to 0
-(1 * e) simplifies to e
-(e * 1) simplifies to e
-(e - 0) simplifies to e
-(e - e) simplifies to 0
-(e ** 0) simplifies to 1
-(e ** 1) simplifies to e
-(1 ** e) simplifies to 1
-if n is a number, then (inc n) simplifies to the value of n + 1
-if n is a number, then (dec n) simplifies to the value of n - 1  
