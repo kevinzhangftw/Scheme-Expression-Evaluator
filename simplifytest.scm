@@ -20,3 +20,6 @@
 (simplify '((1 * a) + (b * 1)))
 (simplify '((1 * a) + (b * 0)))
 (simplify '(z ** (b * (dec 1))))
+(simplify '(4 + (a + b)))
+(simplify '(4 + (a * b)))
+
