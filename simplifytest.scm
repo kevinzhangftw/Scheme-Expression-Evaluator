@@ -22,4 +22,8 @@
 (simplify '(z ** (b * (dec 1))))
 (simplify '(4 + (a + b)))
 (simplify '(4 + (a * b)))
+(simplify '(a ** (0 + 1)))
+(simplify '(a ** (1 + 0)))
+(simplify '((a * 1) + 1))
+(simplify '((a * 0) + 1))
 

@@ -29,6 +29,7 @@
 			  	      ((and (equal? (second expr) '**) (equal? (simplify (first expr)) 1))
 			  	  	  		1)
 					  (else
+					  	;from course notes http://www.cs.sfu.ca/CourseCentral/383/tjd/scheme-intro.html
 							(cons (simplify (first expr)) 
 								  (cons (cadr expr) 
 								  		(cons (simplify (last expr)) '()
